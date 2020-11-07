@@ -1,5 +1,5 @@
 create table products (
-	id uuid primary key default uuid_generate_v4(),
+   id uuid primary key default uuid_generate_v4(),
    title text not null,
    description text,
    price integer
@@ -7,7 +7,7 @@ create table products (
 
 create table stocks (
 	"count" integer,
-	product_id uuid,
+	product_id uuid primary key,
 	foreign key ("product_id") references "products" ("id")
 )
 
