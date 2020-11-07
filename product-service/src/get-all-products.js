@@ -1,29 +1,11 @@
-import { Client } from 'pg';
+import { getClient } from './modules/bdService';
 import productList from './products.json';
-
-const { PG_HOST,
-  PG_PORT,
-  PG_DATABASE,
-  PG_USERNAME,
-  PG_PASSWORD } = process.env;
-
-const dbOptions = {
-  host: PG_HOST,
-  port: PG_PORT,
-  database: PG_DATABASE,
-  user: PG_USERNAME,
-  password: PG_PASSWORD,
-  ssl: {
-    rejectUnauthorized: false
-  },
-  connectionTimeoutMillis: 5000
-}
 
 export const getAllProducts = async (event) => {
   let statusCode = 200;
   let responseBody;
 
-  const client = new Client(dbOptions);
+  const client = getClient();
   try {
     await client.connect();
     console.log('Connected!');
