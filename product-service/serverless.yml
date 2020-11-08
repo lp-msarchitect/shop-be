@@ -35,3 +35,10 @@ functions:
             parameters: 
               paths: 
                 productId: true
+  postProduct:
+    handler: handler.postProduct
+    events:
+      - http:
+          path: products
+          method: post
+          cors: true

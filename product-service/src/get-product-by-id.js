@@ -17,8 +17,8 @@ export const getProductById = async (event) => {
     );
     console.log('rows', rows);
 
-    statusCode = rows ? 200 : 404
-    responseBody = rows ? JSON.stringify(rows) : `Product with id ${productId} not found`  
+    statusCode = rows[0] ? 200 : 404
+    responseBody = rows[0] ? JSON.stringify(rows[0]) : `Product with id ${productId} not found`  
   }catch(err) {
     console.log(err);
     statusCode = 500;
