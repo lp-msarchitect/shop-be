@@ -11,8 +11,45 @@ provider:
 plugins:
   - serverless-webpack
   - serverless-dotenv-plugin
+  - serverless-reqvalidator-plugin
+  - serverless-aws-documentation
 
 custom:
+  documentation:
+    api:
+      info:
+        version: v0.4.0
+        title: AWS-shop
+        description: Store API
+    models:
+      - name: productsResp
+        contentType: application/json
+        schema:
+          type: array
+          items: 
+              $ref : '#/definitions/product'
+      - name: productResp
+        contentType: application/json
+        schema:
+          $ref : '#/definitions/product'
+      - name: postProductReq
+        contentType: application/json
+        schema:
+          type: object
+          required:
+            - title
+            - price
+            - stock
+          properties:
+            title: 
+              type: string
+            description:
+              type: string
+            price:
+              type: integer
+            stock:
+              type: integer
+
   webpack:
     webpackConfig: 'webpack.config.js'
     includeModules: true
@@ -25,6 +62,7 @@ functions:
           path: products
           method: get
           cors: true
+          reqValidatorName: 'xMyRequestValidator'
   
   getProductById:
     handler: handler.getProductById
@@ -33,6 +71,7 @@ functions:
           path: products/{productId}
           method: get
           cors: true
+          reqValidatorName: 'xMyRequestValidator'
           request: 
             parameters: 
               paths: 
@@ -44,3 +83,29 @@ functions:
           path: products
           method: post
           cors: true
+          reqValidatorName: 'xMyRequestValidator'
+resources:
+  Resources:
+    xMyRequestValidator:
+      Type: "AWS::ApiGateway::RequestValidator"
+      Properties:
+        Name: 'my-req-validator'
+        RestApiId: 
+          Ref: ApiGatewayRestApi
+        ValidateRequestBody: true
+        ValidateRequestParameters: false
+definitions:
+  product:
+    type: object
+    properties:
+      id:
+        type: string
+        format: uuid
+      title: 
+        type: string
+      description:
+        type: string
+      price:
+        type: integer
+      stock:
+        type: integer
