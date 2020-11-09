@@ -4,7 +4,7 @@ export const postProduct = async (event) => {
     let statusCode;
     let responseBody;
     const { title, description = '', price, count } = event.body;
-    console.log('request body: ', event.body);
+    console.log(`[${event.httpMethod}:] - [${event.path}] - [${event.body}]`);
     const client = getClient();
     try {
         await client.connect();

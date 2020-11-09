@@ -5,6 +5,7 @@ export const getProductById = async (event) => {
   let statusCode;
   let responseBody;
   const { productId } = event.pathParameters;
+  console.log(`[${event.httpMethod}:] - [${event.path}] - [${event.pathParameters}]`);
   const client = getClient(); 
   try {
     await client.connect();

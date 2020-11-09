@@ -4,7 +4,7 @@ import productList from './products.json';
 export const getAllProducts = async (event) => {
   let statusCode = 200;
   let responseBody;
-
+  console.log(`[${event.httpMethod}:] - [${event.path}] - [${event.pathParameters}]`);
   const client = getClient();
   try {
     await client.connect();
