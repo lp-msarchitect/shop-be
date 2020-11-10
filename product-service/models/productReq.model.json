@@ -3,7 +3,7 @@
   "$schema": "http://json-schema.org/draft-04/schema#",
   "type": "object",
   "title": "Product Schema",
-  "required": ["title"],
+  "required": ["title", "price", "count"],
   "properties": {
     "title": {
       "type": "string"
@@ -17,12 +17,11 @@
       "format": "uri"
     },
     "price": {
-      "type": "number",
-      "minimum": 0.5
+      "type": "integer",
+      "minimum": 0
     },
     "count": {
       "type": "integer",
-      "default": 0,
       "minimum": 0
     }
   }
