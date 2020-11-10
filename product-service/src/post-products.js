@@ -3,7 +3,9 @@ import { getClient } from './modules/bdService';
 export const postProduct = async (event) => {
     let statusCode;
     let responseBody;
-    const { title, description = '', price, count } = event.body;
+    const { title, price, count } = event.body;
+    let { description } = event.body;
+    description = description ? description : '';
     console.log(`[${event.httpMethod}:] - [${event.path}] - [${event.body}]`);
     const client = getClient();
     try {
